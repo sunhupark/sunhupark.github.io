@@ -1,34 +1,902 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>박선후 포트폴리오</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>박선후 | Portfolio</title>
+  <meta name="description" content="박선후 포트폴리오 | 스포츠 마케팅, 스폰서십, 이벤트 기획, AI와 데이터에 관심 있는 학생 포트폴리오" />
+
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --bg-soft: #fcfaf6;
+      --surface: #ffffff;
+      --surface-2: #f1ece2;
+      --text: #1f2d26;
+      --muted: #607065;
+      --line: #ddd6c8;
+      --primary: #1f5c43;
+      --primary-2: #2e7a5a;
+      --accent: #dca85f;
+      --shadow: 0 10px 30px rgba(30, 36, 32, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max-width: 1180px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(220,168,95,0.10), transparent 22%),
+        linear-gradient(180deg, #f8f5ef 0%, #f4f1ea 100%);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      background: rgba(247, 244, 238, 0.82);
+      border-bottom: 1px solid rgba(221, 214, 200, 0.9);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 26px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .nav-menu a {
+      font-size: 0.95rem;
+      color: #3f4d45;
+      transition: 0.2s ease;
+    }
+
+    .nav-menu a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 72px 0 52px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .hero-side {
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(221, 214, 200, 0.9);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-xl);
+    }
+
+    .hero-main {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 520px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(31, 92, 67, 0.08);
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 4vw, 4.2rem);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+      color: #173428;
+    }
+
+    .hero-title .highlight {
+      color: var(--primary-2);
+    }
+
+    .hero-desc {
+      font-size: 1.06rem;
+      color: #53635a;
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .hero-desc + .hero-desc {
+      margin-top: -10px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #194b37;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: rgba(31, 92, 67, 0.06);
+    }
+
+    .hero-side {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 520px;
+    }
+
+    .profile-card {
+      background: linear-gradient(180deg, rgba(241,236,226,0.9), rgba(255,255,255,0.8));
+      border: 1px solid rgba(221, 214, 200, 0.9);
+      border-radius: 24px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .profile-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+
+    .profile-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .profile-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 8px;
+      font-size: 0.96rem;
+      color: #435149;
+    }
+
+    .profile-item strong {
+      color: #23352c;
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--line);
+      color: #314139;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Shared Section */
+    section {
+      padding: 34px 0 24px;
+    }
+
+    .section-heading {
+      margin-bottom: 24px;
+    }
+
+    .section-label {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+      color: #183428;
+    }
+
+    .section-desc {
+      color: #58685f;
+      max-width: 760px;
+      font-size: 1rem;
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(221, 214, 200, 0.9);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+
+    .card h3 {
+      font-size: 1.28rem;
+      line-height: 1.3;
+      color: #1d392d;
+      margin-bottom: 8px;
+    }
+
+    .card h4 {
+      font-size: 0.96rem;
+      color: var(--primary-2);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #55645b;
+      font-size: 0.98rem;
+      margin-bottom: 12px;
+    }
+
+    .card ul {
+      margin-left: 18px;
+      color: #55645b;
+      display: grid;
+      gap: 6px;
+      font-size: 0.96rem;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* Experience */
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(221, 214, 200, 0.9);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+
+    .timeline-date {
+      display: inline-flex;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(31, 92, 67, 0.08);
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .timeline-item h3 {
+      font-size: 1.35rem;
+      color: #1c392d;
+      margin-bottom: 6px;
+    }
+
+    .timeline-item h4 {
+      font-size: 1rem;
+      color: #5a695f;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .timeline-item p {
+      color: #57665d;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      color: #2d4438;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .skills-card {
+      min-height: 100%;
+    }
+
+    .skills-card .tag-list {
+      margin-top: 10px;
+    }
+
+    /* Contact */
+    .contact-wrap {
+      background: linear-gradient(135deg, #1c4f3a 0%, #163c2d 100%);
+      color: white;
+      border-radius: 30px;
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-wrap h3 {
+      font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+
+    .contact-wrap p {
+      color: rgba(255,255,255,0.82);
+      max-width: 760px;
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+      font-size: 1rem;
+    }
+
+    .contact-info strong {
+      color: white;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .contact-links a {
+      display: inline-flex;
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: white;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .contact-links a:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    footer {
+      padding: 40px 0 56px;
+      text-align: center;
+      color: #7b857f;
+      font-size: 0.92rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid,
+      .projects-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-main,
+      .hero-side {
+        min-height: unset;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(var(--max-width), calc(100% - 24px));
+      }
+
+      .nav {
+        padding: 12px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-menu {
+        gap: 14px;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .hero-main,
+      .hero-side,
+      .card,
+      .timeline-item,
+      .contact-wrap {
+        padding: 22px;
+      }
+
+      .profile-item {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .hero-title {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>박선후 Portfolio</h1>
 
-  <h2>About Me</h2>
-  <p>
-    안녕하세요. 저는 한국외국어대학교 글로벌스포츠산업학부에 재학 중이며,
-    컴퓨터공학을 이중전공하고 있습니다.
-  </p>
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">Sunhoo Park</a>
+      <ul class="nav-menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Interests</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
 
-  <h2>Activities</h2>
-  <ul>
-    <li>I-WAY Amateur Football Club 마케팅팀 활동</li>
-    <li>스포츠 이벤트 기획 및 스폰서십 제안 경험</li>
-    <li>GitHub와 오픈소스 소프트웨어 학습</li>
-  </ul>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-main">
+          <div class="eyebrow">Sports · Strategy · Marketing · Data</div>
 
-  <h2>Projects</h2>
-  <ul>
-    <li>GitHub Pages를 활용한 개인 포트폴리오 페이지 제작</li>
-    <li>외대 지도 기반 위치·후기 공유 웹 서비스 기획</li>
-    <li>스포츠 관람 매칭 플랫폼 사업 아이디어 기획</li>
-  </ul>
+          <h1 class="hero-title">
+            스포츠 현장의 경험을<br />
+            <span class="highlight">전략, 마케팅, 데이터</span>로<br />
+            연결하는 사람, 박선후입니다.
+          </h1>
 
-  <h2>Contact</h2>
-  <p>Email: 본인 이메일 입력</p>
-  <p>GitHub: 본인 GitHub 주소 입력</p>
+          <p class="hero-desc">
+            한국외국어대학교 글로벌스포츠산업학부를 전공하고, 컴퓨터공학을 함께 공부하고 있습니다.
+            현재 I-WAY Amateur Football Club에서 마케팅팀 수석매니저로 활동하며
+            스폰서십 제안, 이벤트 기획, 기업 커뮤니케이션, 브랜드 협업 관련 경험을 쌓고 있습니다.
+          </p>
+
+          <p class="hero-desc">
+            특히 HYFF 스폰서십 팀 활동을 통해 유소년 스포츠 이벤트와 브랜드 경험이 연결되는 방식을 고민하고 있으며,
+            앞으로는 전력 분석과 AI를 활용한 스포츠 데이터 분야까지 관심을 넓혀가고 있습니다.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
+            <a href="#contact" class="btn btn-outline">연락하기</a>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="profile-card">
+            <h3>Quick Profile</h3>
+            <div class="profile-list">
+              <div class="profile-item">
+                <strong>School</strong>
+                <span>Hankuk University of Foreign Studies</span>
+              </div>
+              <div class="profile-item">
+                <strong>Major</strong>
+                <span>Global Sports Industry</span>
+              </div>
+              <div class="profile-item">
+                <strong>Double Major</strong>
+                <span>Computer Engineering</span>
+              </div>
+              <div class="profile-item">
+                <strong>Current Role</strong>
+                <span>I-WAY Amateur Football Club · Marketing Team Senior Manager</span>
+              </div>
+              <div class="profile-item">
+                <strong>Interests</strong>
+                <span>Sports Marketing, Sponsorship, Event Planning, Performance Analysis, AI</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-card">
+            <h3>Keywords</h3>
+            <div class="pill-group">
+              <span class="pill">Sports Marketing</span>
+              <span class="pill">Sponsorship</span>
+              <span class="pill">Event Planning</span>
+              <span class="pill">Performance Analysis</span>
+              <span class="pill">AI in Sports</span>
+              <span class="pill">Python</span>
+              <span class="pill">GitHub</span>
+              <span class="pill">Web Planning</span>
+            </div>
+          </div>
+
+          <div class="profile-card" style="margin-bottom:0;">
+            <h3>Focus</h3>
+            <p style="margin-bottom:0;">
+              스포츠 산업의 현장 경험을 바탕으로, 브랜드·참가자·콘텐츠·데이터가 연결되는 구조를 기획하고 싶습니다.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">About</div>
+          <h2 class="section-title">전공, 활동, 그리고 앞으로의 방향</h2>
+          <p class="section-desc">
+            저는 스포츠를 단순한 경기나 소비의 대상으로 보기보다,
+            사람과 브랜드, 경험과 데이터가 함께 연결되는 산업이라고 생각합니다.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="card">
+            <h3>Who I Am</h3>
+            <p>
+              한국외국어대학교 글로벌스포츠산업학부에서 스포츠 산업을 전공하며,
+              스포츠 마케팅, 스포츠 비즈니스, 이벤트 운영과 관련된 내용들을 배우고 있습니다.
+              동시에 컴퓨터공학을 함께 공부하며 Python, 웹 기초, GitHub 등 디지털 역량도 넓혀가고 있습니다.
+            </p>
+            <p>
+              전공 수업과 팀 프로젝트를 통해 기획적 사고와 협업 방식에 익숙해지고 있으며,
+              스포츠와 기술이 만나는 지점에 대해 계속 관심을 가지고 있습니다.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>What I Want to Do</h3>
+            <p>
+              저는 스포츠 현장에서의 실무 경험을 바탕으로, 단순한 행사 운영을 넘어
+              브랜드와 참가자 모두에게 의미 있는 경험을 설계하는 일을 해보고 싶습니다.
+            </p>
+            <p>
+              앞으로는 스포츠 마케팅과 스폰서십을 중심으로 성장하면서,
+              전력 분석과 AI를 활용한 데이터 기반 스포츠 서비스 분야까지 시야를 넓혀가고자 합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">Experience</div>
+          <h2 class="section-title">활동 경험</h2>
+          <p class="section-desc">
+            I-WAY 활동을 중심으로 스포츠 마케팅, 전략기획, ESG 관점의 다양한 경험을 쌓아왔습니다.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">Current</div>
+            <h3>I-WAY Amateur Football Club</h3>
+            <h4>Marketing Team Senior Manager</h4>
+            <p>
+              현재 아이웨이아마추어축구단에서 마케팅팀 수석매니저로 활동하며
+              스폰서십 제안, 기업 컨택, 이벤트 홍보, 브랜드 협업 기획을 담당하고 있습니다.
+              특히 HYFF 유소년 축구 이벤트의 스폰서십 팀 활동을 통해
+              참가자, 학부모, 지역 브랜드가 연결될 수 있는 스포츠 마케팅 구조를 고민하고 있습니다.
+            </p>
+
+            <div class="tag-list">
+              <span class="tag">Sponsorship</span>
+              <span class="tag">Brand Communication</span>
+              <span class="tag">Event Planning</span>
+              <span class="tag">Sports Marketing</span>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">Previous</div>
+            <h3>I-WAY Amateur Football Club</h3>
+            <h4>Strategy Planning Team Manager · Marketing Team ESG Manager</h4>
+            <p>
+              작년에는 전략기획팀 매니저와 마케팅팀 ESG 매니저로 활동하며
+              팀 운영 방향, 행사 기획, 사회공헌형 프로그램 기획에 참여했습니다.
+              이를 통해 스포츠 조직이 경기 운영뿐만 아니라 지역사회 및 브랜드 가치와도
+              연결될 수 있다는 점을 경험했습니다.
+            </p>
+
+            <div class="tag-list">
+              <span class="tag">Strategy Planning</span>
+              <span class="tag">ESG</span>
+              <span class="tag">CSR</span>
+              <span class="tag">Project Planning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">Projects</div>
+          <h2 class="section-title">주요 프로젝트</h2>
+          <p class="section-desc">
+            학교 활동과 팀 프로젝트를 통해 진행했거나 기획한 대표적인 사례들입니다.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <div class="card project-card">
+            <h3>HYFF Sponsorship Planning</h3>
+            <h4>Youth Football Event · Sponsorship · Brand Experience</h4>
+            <p>
+              HYFF 유소년 축구 이벤트를 기반으로 스폰서십 구조와 현장 브랜드 경험을 기획했습니다.
+              참가자, 학부모, 지역 브랜드가 함께 연결될 수 있는 스포츠 이벤트 구조를 고민했습니다.
+            </p>
+            <ul>
+              <li>스폰서 제안 포인트 정리</li>
+              <li>현장 소비와 브랜드 경험 연결 구조 기획</li>
+              <li>교육·지역 기반 브랜드 협업 가능성 검토</li>
+            </ul>
+          </div>
+
+          <div class="card project-card">
+            <h3>HYFF Sponsorship Team Activity</h3>
+            <h4>Sponsorship Strategy · Partner Research · Proposal Planning</h4>
+            <p>
+              HYFF 스폰서십 팀 활동을 통해 기업, 교육 브랜드, 지역 소상공인을 대상으로
+              협찬 가능성을 조사하고 브랜드별 맞춤 제안 방향을 정리했습니다.
+            </p>
+            <ul>
+              <li>스폰서 후보 기업 및 지역 브랜드 리스트업</li>
+              <li>브랜드별 협찬 가능 품목과 어필 포인트 정리</li>
+              <li>유소년 참가자와 학부모를 고려한 스폰서십 가치 분석</li>
+              <li>체험형 부스, 쿠폰, 현장 이벤트 등 참여형 협찬 방식 검토</li>
+            </ul>
+          </div>
+
+          <div class="card project-card">
+            <h3>KUFF x I-WAY Futsal Event</h3>
+            <h4>Futsal Event · Promotion · Sponsorship Communication</h4>
+            <p>
+              KUFF와 I-WAY가 함께하는 교내 풋살 이벤트와 관련하여
+              협찬 제안, 기업 컨택, 홍보 포인트 정리 등 스포츠 이벤트 마케팅 업무를 경험했습니다.
+            </p>
+            <ul>
+              <li>기업별 맞춤 협찬 제안 방향 구상</li>
+              <li>대회 소개 및 홍보 메시지 정리</li>
+              <li>스포츠 이벤트 기반 브랜드 노출 방안 기획</li>
+            </ul>
+          </div>
+
+          <div class="card project-card">
+            <h3>HUFS Campus Map Review Web Service</h3>
+            <h4>Web Planning · Computer Engineering Team Project</h4>
+            <p>
+              컴퓨터공학 팀 프로젝트로 외대 캠퍼스 지도를 기반으로 장소별 후기와 정보를 공유하는 웹 서비스를 기획했습니다.
+              웹 서비스의 기본 구조와 사용자 흐름을 고민하며 GitHub 기반 협업을 학습하고 있습니다.
+            </p>
+            <ul>
+              <li>랜딩 페이지, 회원가입, 로그인 기능 구조 기획</li>
+              <li>지도 기반 게시글 탐색 흐름 설계</li>
+              <li>GitHub를 활용한 팀 프로젝트 협업 경험</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS / INTERESTS -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">Interests & Skills</div>
+          <h2 class="section-title">관심 분야와 학습 중인 역량</h2>
+          <p class="section-desc">
+            스포츠 산업에서의 경험을 바탕으로 기획력과 디지털 역량을 함께 확장하고 있습니다.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="card skills-card">
+            <h3>Marketing & Planning</h3>
+            <p>
+              스포츠 마케팅, 스폰서십, 이벤트 기획을 중심으로
+              브랜드와 참가자를 연결하는 경험 설계에 관심이 있습니다.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Sports Marketing</span>
+              <span class="tag">Sponsorship</span>
+              <span class="tag">Event Planning</span>
+              <span class="tag">Proposal Writing</span>
+              <span class="tag">Brand Communication</span>
+            </div>
+          </div>
+
+          <div class="card skills-card">
+            <h3>Sports & Data Interest</h3>
+            <p>
+              스포츠 현장을 더 깊이 이해하기 위해 전력 분석과
+              데이터 기반 접근 방식, AI 활용 가능성에도 관심을 가지고 있습니다.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Performance Analysis</span>
+              <span class="tag">AI in Sports</span>
+              <span class="tag">Sports Data</span>
+              <span class="tag">Team Strategy</span>
+            </div>
+          </div>
+
+          <div class="card skills-card">
+            <h3>Tech</h3>
+            <p>
+              컴퓨터공학을 함께 공부하며 Python, HTML/CSS, GitHub,
+              웹 서비스 기획 등 디지털 기반 역량을 학습하고 있습니다.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Python</span>
+              <span class="tag">GitHub</span>
+              <span class="tag">HTML/CSS</span>
+              <span class="tag">Web Planning</span>
+              <span class="tag">Computer Engineering Basics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-wrap">
+          <h3>함께 연결되고 싶습니다.</h3>
+          <p>
+            스포츠 산업, 마케팅, 스폰서십, 이벤트 기획, 그리고 스포츠 데이터/AI에 관심이 있습니다.
+            앞으로 더 다양한 프로젝트와 경험을 통해 배우고 성장해 나가고 싶습니다.
+          </p>
+
+          <div class="contact-info">
+            <div><strong>Name</strong> : 박선후</div>
+            <div><strong>Email</strong> : sunhu0104@naver.com</div>
+            <div><strong>GitHub</strong> : https://github.com/sunhupark</div>
+          </div>
+
+          <div class="contact-links">
+            <a href="mailto:sunhu0104@naver.com">Email</a>
+            <a href="https://github.com/sunhupark" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Sunhoo Park. Built with GitHub Pages.
+    </div>
+  </footer>
 </body>
 </html>
